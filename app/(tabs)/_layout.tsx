@@ -7,11 +7,15 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import '../../global.css';
+import { AuthProvider } from '../context/AuthContext';
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
+    <AuthProvider>
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -27,8 +31,9 @@ export default function TabLayout() {
         }),
       }}>
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
+
           title: 'Home',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
@@ -41,5 +46,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </AuthProvider>
   );
 }
