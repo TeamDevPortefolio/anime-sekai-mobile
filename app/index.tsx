@@ -2,19 +2,25 @@ import CustomButton from "@/components/CustomButton";
 import { API_TOKEN_AUTH } from '@env';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import axios from 'axios';
+import { Image } from "expo-image";
 import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from "react";
 import {
-    Animated,
-    Image,
-    ImageBackground,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Animated,
+  Dimensions,
+
+  ImageBackground,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
 } from "react-native";
+
+
+const { width, height } = Dimensions.get('window');
+
 import { useAuth } from "./context/AuthContext";
 
 export default function Index() {
@@ -70,105 +76,110 @@ export default function Index() {
   }, [user]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#94a3b8' }}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <ImageBackground
-            source={require('../assets/images/Image-home.jpg')}
-            style={{ width: '100%', height: '100%', justifyContent: 'space-between', paddingTop: 50, paddingBottom: 30 }}
-            resizeMode="cover"
-          >
-            {(logForm || subscribeForm) && (
-              <Ionicons
-                name='arrow-back'
-                color="#fff"
-                size={25}
-                style={{ position: 'absolute', top: 30, left: 20, opacity: 1 }}
-                onPress={resetState}
-              />
-            )}
 
-            <View style={{ alignItems: 'center' }}>
-              <Image source={require('../assets/svg/default-monochrome-white.svg')} style={{ width: 300, height: 200 }} resizeMode="contain" />
-              <Text style={{ color: 'white', fontSize: 24, textAlign: 'center', marginBottom: 20 }}>
-                Visionnez dès maintenant
-              </Text>
-            </View>
-
-            {!logForm && !subscribeForm && (
+        <ImageBackground
+          source={require('../assets/images/Image-home.jpg')}
+          style={{ flex: 1 }}
+          resizeMode="cover"
+        >
+          <SafeAreaView style={{ flex: 1 }}>
+      
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <View style={{ flex: 1, justifyContent: 'space-between', paddingTop: 50, paddingBottom: 30 }}>
+              {(logForm || subscribeForm) && (
+                <Ionicons
+                  name='arrow-back'
+                  color="#fff"
+                  size={25}
+                  style={{ position: 'absolute', top: 30, left: 20, opacity: 1 }}
+                  onPress={resetState}
+                />
+              )}
+    
               <View style={{ alignItems: 'center' }}>
-                <CustomButton
-                  title="Connection"
-                  isLoading={false}
-                  containerStyle="mb-2 bg-[#1659DC] opacity-[.90]"
-                  textStyle="text-white"
-                  onPress={handleForm}
-                />
-                <CustomButton
-                  title="S'enregister"
-                  isLoading={false}
-                  containerStyle="bg-[#ECEBFC] opacity-[.90]"
-                  onPress={handleSubcribe}
-                />
+                <Image source={require('../assets/svg/default-monochrome-white.svg')} style={{ width: 300, height: 200 }} resizeMode="contain" />
+                <Text style={{ color: 'white', fontSize: 24, textAlign: 'center', marginBottom: 20 }}>
+                  Visionnez dès maintenant
+                </Text>
               </View>
-            )}
+    
+              {!logForm && !subscribeForm && (
+                <View style={{ alignItems: 'center' }}>
+                  <CustomButton
+                    title="Connection"
+                    isLoading={false}
+                    containerStyle="mb-2 bg-[#1659DC] opacity-[.90]"
+                    textStyle="text-white"
+                    onPress={handleForm}
+                  />
+                  <CustomButton
+                    title="S'enregister"
+                    isLoading={false}
+                    containerStyle="bg-[#ECEBFC] opacity-[.90]"
+                    onPress={handleSubcribe}
+                  />
+                </View>
+              )}
+    
+              {logForm && (
+                <Animated.View
+                  style={{
+                    opacity: fadeAn,
+                    transform: [{ translateY }],
+                    paddingHorizontal: 20,
+                    width: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text style={styles.label}>Username</Text>
+                  <TextInput placeholder="Username" style={styles.input} />
+                  <Text style={styles.label}>Mot de passe</Text>
+                  <TextInput placeholder="Mot de passe" secureTextEntry style={styles.input} />
+                  <CustomButton
+                    title="Submit"
+                    isLoading={false}
+                    containerStyle="bg-[#1659DC] w-full mt-5"
+                    textStyle="text-white"
+                    onPress={handleLogin}
+                  />
+                </Animated.View>
+              )}
+    
+              {subscribeForm && (
+                <Animated.View
+                  style={{
+                    opacity: fadeAn,
+                    transform: [{ translateY }],
+                    paddingHorizontal: 20,
+                    width: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text style={styles.label}>Username</Text>
+                  <TextInput placeholder="Username" style={styles.input} />
+                  <Text style={styles.label}>Email</Text>
+                  <TextInput placeholder="Email" style={styles.input} />
+                  <Text style={styles.label}>Mot de passe</Text>
+                  <TextInput placeholder="Mot de passe" secureTextEntry style={styles.input} />
+                  <Text style={styles.label}>Confirmation mot de passe</Text>
+                  <TextInput placeholder="Confirmation" secureTextEntry style={styles.input} />
+                  <CustomButton
+                    title="Submit"
+                    isLoading={false}
+                    containerStyle="bg-[#1659DC] w-full mt-5"
+                    textStyle="text-white"
+                  />
+                </Animated.View>
+              )}
+            </View>
+          </ScrollView>
+     
+      </SafeAreaView>  
+       </ImageBackground>
 
-            {logForm && (
-              <Animated.View
-                style={{
-                  opacity: fadeAn,
-                  transform: [{ translateY }],
-                  paddingHorizontal: 20,
-                  width: '100%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Text style={styles.label}>Username</Text>
-                <TextInput placeholder="Username" style={styles.input} />
-                <Text style={styles.label}>Mot de passe</Text>
-                <TextInput placeholder="Mot de passe" secureTextEntry style={styles.input} />
-                <CustomButton
-                  title="Submit"
-                  isLoading={false}
-                  containerStyle="bg-[#1659DC] w-full mt-5"
-                  textStyle="text-white"
-                  onPress={handleLogin}
-                />
-              </Animated.View>
-            )}
-
-            {subscribeForm && (
-              <Animated.View
-                style={{
-                  opacity: fadeAn,
-                  transform: [{ translateY }],
-                  paddingHorizontal: 20,
-                  width: '100%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Text style={styles.label}>Username</Text>
-                <TextInput placeholder="Username" style={styles.input} />
-                <Text style={styles.label}>Email</Text>
-                <TextInput placeholder="Email" style={styles.input} />
-                <Text style={styles.label}>Mot de passe</Text>
-                <TextInput placeholder="Mot de passe" secureTextEntry style={styles.input} />
-                <Text style={styles.label}>Confirmation mot de passe</Text>
-                <TextInput placeholder="Confirmation" secureTextEntry style={styles.input} />
-                <CustomButton
-                  title="Submit"
-                  isLoading={false}
-                  containerStyle="bg-[#1659DC] w-full mt-5"
-                  textStyle="text-white"
-                />
-              </Animated.View>
-            )}
-          </ImageBackground>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    
   );
 }
 
