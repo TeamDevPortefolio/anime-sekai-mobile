@@ -86,7 +86,12 @@ const styles = StyleSheet.create({
         marginHorizontal:60,
         alignItems:'center',
         borderRadius:34,
-        opacity:0.9
+        opacity:0.9,
+        shadowColor:'#fff',
+        shadowOffset:{width:10,height:8},
+        shadowRadius:10,
+        elevation: 5,
+        
     
     },
     tabBarIcon: {

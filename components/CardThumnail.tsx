@@ -1,7 +1,8 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Image } from 'expo-image';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Text, TouchableOpacity, View } from 'react-native';
 
+const {width:screenWidth,height:screenHeight} = Dimensions.get('window');
 
 export default function CardThumnail() {
     return (

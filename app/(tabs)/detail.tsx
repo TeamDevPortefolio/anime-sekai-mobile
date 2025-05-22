@@ -174,6 +174,7 @@ export default function DetailScreen() {
 
 
           </MaskedView>
+          <Text className='text-white absolute  top-16 left-4 text-xl  font-bold opacity-75 '>Aperçus</Text>
           <Ionicons className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' size={100} name={isPlaying ? "pause" : 'play'} color="#AFA4DA" onPress={togglePlayPause} ></Ionicons>
 
           <Ionicons className='absolute top-[40px] right-8' size={50} name={ismute ? 'volume-mute-outline' : 'volume-medium-outline'} color="#AFA4DA" onPress={toggleMute}></Ionicons>
